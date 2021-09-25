@@ -39,7 +39,10 @@ async function main() {
     const tk = tokens[i]
     
     const currPrice = await getTokenPrice(tk.addr)
-    const perc = Math.abs(currPrice - tk.lpPrice) / tk.lpPrice
+    let perc = 0
+    if (currPrice < tk.lpPrice) { // price drop
+      perc = (tk.lpPrice - currPrice) / tk.lpPrice
+    }
 
     console.log("init: " + tk.lpPrice + " - curr: " + currPrice)
     console.log("percentage: " + (perc * 100))
