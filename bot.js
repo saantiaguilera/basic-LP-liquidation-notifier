@@ -1,7 +1,7 @@
 const Web3 = require('web3');
 const axios = require('axios');
 
-const { Fetcher, ChainId, Token } = require('@pancakeswap/sdk');
+const { Fetcher, ChainId } = require('@pancakeswap/sdk');
 const { JsonRpcProvider } = require('@ethersproject/providers');
 const { tgAccessToken, tgChatIds, tokens, rpcUrl } = require('./local.json');
 
