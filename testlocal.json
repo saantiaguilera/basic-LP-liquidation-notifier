@@ -1,13 +1,13 @@
 {
   "tgAccessToken": "<your access token>",
   "tgChatIds": [ 1234, 5678 ],
-  "addr": "0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c -> WBNB addr because of now I hit pcs only. If you use univ2 or an other feel free to change for WETH/etc",
-  "mainnetUrl": "https://bsc-dataseed.binance.org/ -> infura or any other node if not using pcs",
+  "rpcUrl": "https://bsc-dataseed.binance.org/ -> infura or any other node if not using pcs",
   "tokens": [
     {
       "pairName": "CAKE/BNB -> pair name for logging",
       "lpPrice": 0.05251951739,
-      "addr": "0x0e09fabb73bd3ade0a17ecc321fd13a19e81ce82 -> of the token, not LP! This is cake (we build the pair on our own)",
+      "addrA": "0x0e09fabb73bd3ade0a17ecc321fd13a19e81ce82 -> one of the LP's token pair addresses (eg. CAKE)",
+      "addrB": "0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c -> the other LP token pair address (eg. WBNB)",
       "threshold": 0.1
     }
   ]

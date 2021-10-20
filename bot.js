@@ -3,23 +3,24 @@ const axios = require('axios');
 
 const { Fetcher, ChainId, Token } = require('@pancakeswap/sdk');
 const { JsonRpcProvider } = require('@ethersproject/providers');
-const { tgAccessToken, tgChatIds, tokens, addr, mainnetUrl } = require('./local.json');
+const { tgAccessToken, tgChatIds, tokens, rpcUrl } = require('./local.json');
 
 const tgUrl = "https://api.telegram.org/bot" + tgAccessToken + "/sendMessage";
 
-const provider = new JsonRpcProvider(mainnetUrl);
+const provider = new JsonRpcProvider(rpcUrl);
 
-const web3Client = new Web3(mainnetUrl)
-const eth = web3Client.eth
-
-async function getTokenPrice(address) {
-  const BNB = new Token(ChainId.MAINNET, addr, 18);
-  const token = await Fetcher.fetchTokenData(
+async function getTokenPrice(addressA, addressB) {
+  const tokenA = await Fetcher.fetchTokenData(
     ChainId.MAINNET,
-    address,
+    Web3.utils.toChecksumAddress(addressA),
     provider,
   );
-  const pair = await Fetcher.fetchPairData(BNB, token, provider);
+  const tokenB = await Fetcher.fetchTokenData(
+    ChainId.MAINNET,
+    Web3.utils.toChecksumAddress(addressB),
+    provider,
+  );
+  const pair = await Fetcher.fetchPairData(tokenA, tokenB, provider);
   const price = pair.token0Price.toSignificant(10);
   return price;
 }
@@ -38,7 +39,7 @@ async function main() {
   for (i = 0; i < tokens.length; i++) {
     const tk = tokens[i]
     
-    const currPrice = await getTokenPrice(tk.addr)
+    const currPrice = await getTokenPrice(tk.addrA, tk.addrB)
     let perc = 0
     if (currPrice < tk.lpPrice) { // price drop
       perc = (tk.lpPrice - currPrice) / tk.lpPrice
